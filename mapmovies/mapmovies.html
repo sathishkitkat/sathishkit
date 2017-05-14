@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <select  class="form-control" ng-model="mapmovieCtrl.tname">
+          <option ng-repeat="y in mapmovieCtrl.tdata">{{y.theatrename}}</option>
+     </select>
+     <div class="form-group">
+       <input type="text" placeholder="locations" class="form-control" ng-model="mapmovieCtrl.location" />
+     </div>
+      <div class="form-group">
+        <select class="form-control" ng-model="mapmovieCtrl.title">
+          <option ng-repeat="x in mapmovieCtrl.data">{{x.Title}}</option>
+     </select>
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="showtime" class="form-control" ng-model="mapmovieCtrl.showtime" />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="fromdate" class="form-control" ng-model="mapmovieCtrl.fromdate" />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="todate" class="form-control" ng-model="mapmovieCtrl.todate" />
+      </div>
+      <button class="btn btn-success" ng-click="theatreCtrl.Addtheatre()">Add</button>
+      <button type="button" ng-click="theatreCtrl.update()" class="btn btn-primary">Update</button><br><br>
+
+    </div>
+  </div>
+  <div class="col-md-6">
+    <table class="table">
+      <tr>
+        <td>location</td>
+        <td>theatrename</td>
+        <td>moviesname</td>
+        <td>showtime</td>
+        <td>fromdate</td>
+        <td>todate</td>
+      </tr>
+      <tr ng-repeat="t in mapmovieCtrl.mapmovieDate">
+        <td>{{t.location}}</td>
+        <td>{{t.tname}}</td>
+        <td>{{t.city}}</td>
+        <td>{{t.showtime}}</td>
+        <td>{{t.fromdate}}</td>
+        <td>{{t.todate}}</td>
+        <td>
+          <button class="btn btn-primary" ng-click="mapmovieCtrl.Edit(m)">Edit</button>
+          <button class="btn btn-primary" ng-click="mapmovieCtrl.Remove(m)">Remove</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>

@@ -1,0 +1,8 @@
+.seatno{
+  width: 25px;
+  height:25px;
+  background-color: lightblue;
+  border-radius: 30%;
+  text-align: center;
+  border: 1px solid black;
+}
