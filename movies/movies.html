@@ -1,0 +1,33 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="tab-content">
+         <div id="home" class="tab-pane fade in active">
+      <div class="form-group">
+        <input type="text" placeholder="name" class="form-control" ng-model="moviesCtrl.name" / >
+      </div>
+     <div class="form-group">
+       <input type="text" placeholder="year" class="form-control" ng-model="moviesCtrl.year" />
+      <button type="button" ng-click="moviesCtrl.getmovie()" class="btn btn-primary">Get</button>
+   </div>
+
+       <button class="btn btn-success" ng-click="moviesCtrl.Addtheatre()">Add</button>
+        <button type="button" ng-click="moviesCtrl.update()" class="btn btn-primary">Update</button><br><br>
+    </div>
+  </div>
+</div>
+  <div class="col-md-6">
+      <table class="table">
+        <tr>
+          <td>name</td>
+          <td>year</td>
+        </tr>
+        <tr ng-repeat="m in moviesCtrl.moviesDate">
+          <td>{{m.name}}</td>
+          <td>{{m.year}}</td>
+        </tr>
+      </table>
+    </div>
+    </div>
+  </div>
