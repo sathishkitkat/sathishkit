@@ -12,10 +12,11 @@
       <button type="button" ng-click="$moviesCtrl.getmovie()" class="btn btn-primary">Get</button>
    </div>
 
-       <button class="btn btn-success" ng-click="$moviesCtrl.Addmovies()">Add</button>
+       <!-- <button class="btn btn-success" ng-click="$moviesCtrl.Addmovies()">Add</button> -->
 
     </div>
   </div>
+</div>
 </div>
   <!-- <div class="row">
   <div class="col-md-6 text center">
@@ -37,41 +38,41 @@
     </div>
   </div> -->
 
-  <div class="row">
+  <div class="row" >
     <div class="col-md-12 text-center">
-      <div ng-show="$ctrl.omdbdata.Response=='False'">
+      <div ng-show="$moviesCtrl.movieObj.Response=='False'">
         <div class="alert alert-danger">
+          <p>There is no movie for this name<p>
     </div>
   </div>
-    <table class="table table-default" ng-show="$moviesCtrl.omdbdata.Response=='True'">
+    <table class="table table-default" ng-show="$moviesCtrl.movieObj.Response=='True'">
       <thead>
         <tr>
+              <th>Poster</th>
           <th>Title</th>
           <th>Year</th>
           <th>Language</th>
           <th>Genre</th>
           <th>Actors</th>
-          <th>Plot</th>
-          <th>Poster</th>
+
         </tr>
       </thead>
       <tbody>
         <tr style="text-align:left">
           <td rowspan="2">
-            <img src={{$moviesCtrl.omdbdata.Poster}} width="90%" height="50%" ng-show="$moviesCtrl.omdbdata.Poster!='N/A'" />
-            <img src="assets/images/noposter.jpg" width="150" height="200" ng-show="$moviesCtrl.omdbdata.Poster=='N/A'" />
+            <img src={{$moviesCtrl.movieObj.Poster}} width="90%" height="50%" ng-show="$moviesCtrl.movieObj.Poster!='N/A'" />
+            <!-- <img src="assets/images/noposter.jpg" width="150" height="200" ng-show="$moviesCtrl.omdbdata.Poster=='N/A'" /> -->
           </td>
-          <td>{{$ctrl.omdbdata.Title}}</td>
-          <td>{{$ctrl.omdbdata.Year}}</td>
-          <td>{{$ctrl.omdbdata.Genre}}</td>
-          <td>{{$ctrl.omdbdata.Actors}}</td>
-          <td>{{$ctrl.omdbdata.Director}}</td>
-          <td>{{$ctrl.omdbdata.Language}}</td>
-          <td>{{$ctrl.omdbdata.Plot}}</td>
+          <td>{{$moviesCtrl.movieObj.Title}}</td>
+          <td>{{$moviesCtrl.movieObj.Year}}</td>
+          <td>{{$moviesCtrl.movieObj.Language}}</td>
+          <td>{{$moviesCtrl.movieObj.Genre}}</td>
+          <td>{{$moviesCtrl.movieObj.Actors}}</td>
+
         </tr>
         <tr>
-          <td><button type="button" class="btn btn-primary btn-lg" ng-click="$moviesCtrl.addMovie()"><span class="glyphicon glyphicon-plus"></span> Add Movie</button></td>
-          <td><a class="btn btn-primary btn-lg" target="_blank" href="http://www.imdb.com/title/{{$moviesCtrl.omdbdata.imdbID}}"><span class="glyphicon glyphicon-eye-open"></span> View on IMDB</button></td>
+          <td><button type="button" class="btn btn-primary btn-lg" ng-click="$moviesCtrl.Addmovies()"><span class="glyphicon glyphicon-plus"></span> Add Movie</button></td>
+
         </tr>
       </tbody>
     </table>
@@ -81,27 +82,26 @@
 <div class="row">
   <div class="col-md-12">
     <table class="table table-default table-hover">
-      <caption><h3 class="text-primary"><u>Added Movies</u></h3></caption>
+    <h3><font face="verdana" color="green">Movies list</font></h3>
       <thead>
       <tr>
         <th>Title</th>
         <th>Language</th>
         <th>Genre</th>
         <th>Director</th>
-        <th>Poster</th>
-        <th>Year</th>
-        <th>Plot</th>
+        <th>Actors</th>
+        <!-- <th>Year</th> -->
+        <!-- <th>Duration</th> -->
       </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="movie in $moviesCtrl.myMovies">
+    <tr ng-repeat="movie in $moviesCtrl.moviesData">
       <td>{{movie.Title}}</td>
       <td>{{movie.Language}}</td>
       <td>{{movie.Genre}}</td>
       <td>{{movie.Director}}</td>
       <td>{{movie.Actors}}</td>
-      <td>{{movie.Year}}</td>
-      <td>{{movie.Plot}}</td>
+
       <td><button type="submit" class="btn btn-danger glyphicon glyphicon-trash" ng-click="$moviesCtrl.deleteMovie(movie)"></button></td>
     </td>
     </tr>

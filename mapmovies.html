@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h5>Location</h5>
+        <div class="form-group">
+           <select class="form-control" ng-model="mapmoviesCtrl.location">
+             <option ng-repeat="y in mapmoviesCtrl.tdata|unique:mapmoviesCtrl.tdata.location" >{{y.location}}</option>
+
+           </select>
+        </div>
+      <div class="form-group">
+        <h5>TheatreName</h5>
+        <select  class="form-control" ng-model="mapmoviesCtrl.tname">
+          <option ng-repeat="x in mapmoviesCtrl.tdata|filter:mapmoviesCtrl.location">{{x.theatrename}}</option>
+     </select>
+   </div>
+
+
+     <h5>MoviesName</h5>
+      <div class="form-group">
+        <select class="form-control" ng-model="mapmoviesCtrl.title">
+          <option ng-repeat="z in mapmoviesCtrl.data">{{z.Title}}</option>
+     </select>
+      </div>
+      <!-- <div class="form-group">
+        <input type="text" placeholder="showtime" class="form-control" ng-model="mapmovieCtrl.showtime" />
+      </div> -->
+      <h5>Showtime</h5>
+      <div class="form-group">
+        <select class="form-control" ng-model="mapmoviesCtrl.showtime">
+          <option ng-repeat="w in mapmoviesCtrl.tdata|filter:mapmoviesCtrl.tname">{{w.showtime}}</option>
+     </select>
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="fromdate" class="form-control" ng-model="mapmoviesCtrl.fromdate" />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="todate" class="form-control" ng-model="mapmoviesCtrl.todate" />
+      </div>
+      <button class="btn btn-success" ng-click="mapmoviesCtrl.Addmapmovie()">Add</button>
+      <button type="button" ng-click="mapmoviesCtrl.update()" class="btn btn-primary">Update</button><br><br>
+
+    </div>
+  </div>
+  <div class="col-md-6">
+    <table class="table">
+      <tr>
+        <td>theatrename</td>
+        <td>location</td>
+        <td>moviesname</td>
+        <td>showtime</td>
+        <td>fromdate</td>
+        <td>todate</td>
+      </tr>
+      <tr ng-repeat="t in mapmovieCtrl.mapmovieDate">
+        <td>{{mapmovie.theatre}}</td>
+        <td>{{mapmovie.location}}</td>
+        <td>{{mapmovie.moviesname}}</td>
+        <td>{{mapmovie.showtime}}</td>
+        <td>{{mapmovie.fromdate}}</td>
+        <td>{{mapmovie.todate}}</td>
+        <td>
+          <button class="btn btn-primary" ng-click="mapmovieCtrl.Edit(m)">Edit</button>
+          <button class="btn btn-primary" ng-click="mapmovieCtrl.Remove(m)">Remove</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
