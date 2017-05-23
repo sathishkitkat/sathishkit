@@ -1,64 +1,74 @@
+ <h3>Maping</h3>
 <div class="container">
   <div class="row">
     <div class="col-md-6">
+      <h5>MoviesName</h5>
+       <div class="form-group">
+         <select class="form-control" ng-model="mapmoviesCtrl.title">
+           <option ng-repeat="z in mapmoviesCtrl.data">{{z.Title}}</option>
+      </select>
+       </div>
       <h5>Location</h5>
         <div class="form-group">
-           <select class="form-control" ng-model="mapmoviesCtrl.location">
-             <option ng-repeat="y in mapmoviesCtrl.tdata|unique:mapmoviesCtrl.tdata.location" >{{y.location}}</option>
-
+           <select class="form-control" id="editlocation" ng-model="mapmoviesCtrl.location">
+             <option ng-repeat="y in mapmoviesCtrl.tdata|unique:'location'" >{{y.location}}</option>
            </select>
         </div>
       <div class="form-group">
         <h5>TheatreName</h5>
-        <select  class="form-control" ng-model="mapmoviesCtrl.tname">
+        <select  class="form-control"  ng-model="mapmoviesCtrl.tname" ng-change="mapmoviesCtrl.getshowtime()">
           <option ng-repeat="x in mapmoviesCtrl.tdata|filter:mapmoviesCtrl.location">{{x.theatrename}}</option>
      </select>
    </div>
 
-
-     <h5>MoviesName</h5>
-      <div class="form-group">
-        <select class="form-control" ng-model="mapmoviesCtrl.title">
-          <option ng-repeat="z in mapmoviesCtrl.data">{{z.Title}}</option>
-     </select>
-      </div>
-      <!-- <div class="form-group">
-        <input type="text" placeholder="showtime" class="form-control" ng-model="mapmovieCtrl.showtime" />
-      </div> -->
       <h5>Showtime</h5>
       <div class="form-group">
-        <select class="form-control" ng-model="mapmoviesCtrl.showtime">
-          <option ng-repeat="w in mapmoviesCtrl.tdata|filter:mapmoviesCtrl.tname">{{w.showtime}}</option>
+        <select id="UserSelector" class="form-control" ng-model="mapmoviesCtrl.showtime">
+          <!-- <option ng-repeat="w in mapmoviesCtrl.tdata|filter:mapmoviesCtrl.location">{{w.showtime}}</option> -->
+          <optgroup label="Select" ng-repeat="tobj in mapmoviesCtrl.st">
+            <option ng-repeat="tm in tobj">{{tm}}</option></optgroup>
      </select>
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="fromdate" class="form-control" ng-model="mapmoviesCtrl.fromdate" />
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="todate" class="form-control" ng-model="mapmoviesCtrl.todate" />
-      </div>
-      <button class="btn btn-success" ng-click="mapmoviesCtrl.Addmapmovie()">Add</button>
-      <button type="button" ng-click="mapmoviesCtrl.update()" class="btn btn-primary">Update</button><br><br>
+     <!-- <select id="selecttime"><optgroup label="Select" ng-repeat="tobj in Threaterlist | filter:now.TName">
+       <option ng-repeat="tm in tobj.ShowTime">{{tm}}</option></optgroup></select> -->
 
+     <button ng-click="mapmoviesCtrl.Add()" class="btn btn-success">Add showtime</button>
+    <select id="mySelect" multiple></select>
+      </div>
+
+          <div class="form-group">
+        <input type="text" id="date1" placeholder="fromdate" class="form-control" ng-model="mapmoviesCtrl.fromdate" />
+      </div>
+         
+
+      <!-- <div class="hero-unit">
+               <input  type="text" placeholder="click to show datepicker"  id="example1">
+           </div> -->
+
+
+      <!-- <div class="form-group">
+        <input type="text" placeholder="todate" class="form-control" ng-model="mapmoviesCtrl.todate" />
+      </div> -->
+      <button class="btn btn-primary btn-lg" ng-click="mapmoviesCtrl.Addmapmovie()">Map</button><br>
+      <!-- <button type="button" ng-click="mapmoviesCtrl.update()" class="btn btn-primary">Update</button> -->
     </div>
   </div>
   <div class="col-md-6">
     <table class="table">
       <tr>
-        <td>theatrename</td>
-        <td>location</td>
-        <td>moviesname</td>
-        <td>showtime</td>
-        <td>fromdate</td>
-        <td>todate</td>
+        <td><h4>Theatrename</h4></td>
+        <td><h4>Location</h4></td>
+        <td><h4>Moviesname</h4></td>
+        <td><h4>Showtime</h4></td>
+        <!-- <td><h4>Fromdate</h4></td> -->
+        <!-- <td><h4>Todate</h4></td> -->
       </tr>
       <tr ng-repeat="t in mapmovieCtrl.mapmovieDate">
         <td>{{mapmovie.theatre}}</td>
         <td>{{mapmovie.location}}</td>
         <td>{{mapmovie.moviesname}}</td>
         <td>{{mapmovie.showtime}}</td>
-        <td>{{mapmovie.fromdate}}</td>
-        <td>{{mapmovie.todate}}</td>
+        <!-- <td>{{mapmovie.fromdate}}</td> -->
+        <!-- <td>{{mapmovie.todate}}</td> -->
         <td>
           <button class="btn btn-primary" ng-click="mapmovieCtrl.Edit(m)">Edit</button>
           <button class="btn btn-primary" ng-click="mapmovieCtrl.Remove(m)">Remove</button>
