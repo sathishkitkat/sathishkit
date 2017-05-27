@@ -1,3 +1,9 @@
+
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+
+<script>
+
+  </script>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -5,30 +11,55 @@
   <thead>
 <tr>
   <div>
-  <button type="button" class="btn btn-primary btn-lg btn-block ">{{minfo.bktitle}}</button>
+  <button  id="mname" type="button" class="btn btn-primary btn-lg btn-block "></button>
+
+<!-- <p>Date: <input type="text" id="datepicker"></p> -->
 </div>
 <!-- <button type="button" class="btn btn-primary btn-lg btn-block heading">{{minfo.bktitle}}</button> -->
 
 <!-- <tr class="tablestyle"> -->
-            <th>Movie Name</th><td>{{minfo.tit}}</td>
-
+            <th>Movie Name</th><td id="mtit"></td></tr>
 
 <tr>  <th>Location</th>
-<!-- <td><select   ng-model="bking.tLoc">
-<option ng-repeat="now in nowlist |unique:bking.tLoc |filter:movie.Title"  value="{{now.City}}" >{{now.City}}</option>
-</select></td> -->
-<td><select ng-model="minfo.tLoc">
- <option ng-repeat="n in locmovie|minfo.bktitle|minfo.tit"  value="{{n}}" >{{n}}</option>
-</select></td>
-</tr><br>
-</div>
-</div>
-</div>
+<td><select  class="form-control" ng-model="tloc">
+ <option ng-repeat="t in seatbookingCtrl.minfo|unique:'location'" value="{{t.location}}">{{t.location}}</option>
+</select></td></tr>
+
+<tr class="tablestyle">
+   <th>Theatre Name</th><td>
+     <!-- <select class="form-control">
+ <optgroup label="Select" ng-repeat="tobj in seatbookingCtrl.minfo">
+         <option ng-repeat="tm in tobj.tname">{{tm}}</option></optgroup>
+  </select> -->
+  <select class="form-control" ng-model="tname">
+<option ng-repeat="tobj in seatbookingCtrl.minfo|filter:tLoc|unique:'tname'" value="{{tobj.tname}}">{{tobj.tname}}
+    </option>
+</select>
+    <!-- <option ng-repeat="t in seatbookingCtrl.minfo">
+    </option></select> -->
+  </td></tr><br>
 
 
-      <tr class="tablestyle">   <th>Theatre Name</th><td><select ng-model="bking.tName" >
-          <option ng-repeat="now in nowlist | filter:movie.Title | filter:bking.tLoc" value="{{now.TName}}">{{now.TName}}</option></select></td></tr><br>
-          <tr class="tablestyle">
+
+        <!-- <tr><th><select class="form-control"> --><tr><th>
+ Pick a Date:</th> <td><select class="form-control"><optgroup  ng-repeat="dt in seatbookingCtrl.minfo|filter:tLoc|filter:tname">
+         <option ng-repeat="d in dt.formdate" value="{{d}}">{{d}}</option></optgroup></select>
+
+ <!-- <input type="text" ng-change="f()" id="date" ng-model="datePicker" datepicker/> -->
+ </td></tr>
+ <tr><th>Showtime</th>
+ <td>
+   <!-- <select  class="form-control"  ng-model="seatbookingCtrl.showtime"> -->
+     <!-- <option ng-repeat="s in seatbookingCtrl.minfo|filter:tLoc|filter:th" value="{{s.showtime}}" >{{s.showtime}}</option>
+ </select> -->
+ <select class="form-control" ng-model='showtime'><optgroup  ng-repeat="o in seatbookingCtrl.minfo|filter:tLoc|filter:tname|unique:'showtime'">
+         <option ng-repeat="m in o.showtime" value="{{m}}">{{m}}</option></optgroup></select></td></tr>
+</tr>
+</select>
+<br>
+</div>
+</div>
+</div>
 
           <th>No of Tickets</th>
           <td>  <select class="" id="seats" ng-model="bking.noofTickets">Tickets
@@ -45,7 +76,7 @@
               </select></td>
           </tr>
 
-<tr class="tablestyle"> <td> <th><a ng-click="show()" class="btn btn-primary">Select Your Seats</a></th><td></tr>
+<!-- <tr class="tablestyle"> <td> <th><a ng-click="seatbookingCtrl.show()" class="btn btn-primary">Select Your Seats</a></th><td></tr> -->
 
 <tr class="tablestyle">
     <th>Seats Selected :</th><td><p id="st"></p></td>
@@ -70,7 +101,7 @@ $(document).ready(function() {
 </script>
 
 
-<div class="container">
+<div ng-show="seatbookingCtrl.seat" class="container">
   <div class="row">
     <div class="col-md-6">
       <table class="table">
@@ -87,8 +118,36 @@ $(document).ready(function() {
           <td>9</td>
           <td>10</td>
         <tr>
-          <p style="font-size:36px;color:#00ff2d;">Select Your Seats:</p>
-          <td>A</td>
+          <!-- <p style="font-size:36px;color:#00ff2d;">Select Your Seats:</p> -->
+
+          <div class="content"  ng-show="goCats">
+ <table class="seatLayout" >
+ <div class="legend">
+    <div style="
+ margin-left: 22%;">
+ <img src="assets/images/Seating.gif">  Available</div>
+   <div style="margin-top: -5%; margin-left: 49%;">  <img src="assets/images/Seating.gif" class="padding-left">  Booked</div>
+</div>
+ <tbody>
+   <tr class="tablestyle">
+         <td class="padding-bottom"></td>
+         <td class="padding-bottom" ng-repeat="col in cols track by $index" ng-bind="col"></td>
+     </tr>
+     <tr class="tablestyle" ng-repeat="row in rows">
+         <td class="padding-right" ng-bind="row"></td>
+         <td class="seat" ng-repeat="col in cols" ng-click="seatClicked(row + col)" ng-switch on="getStatus(row + col)" style="padding: 5px 5px 5px 5px;">
+             <img ng-switch-when="selected" src="assets/images/Seating.gif">
+             <img ng-switch-when="reserved" src="../resources/images/R_chair.gif">
+             <img ng-switch-default src="assets/images/Seating.gif">
+         </td>
+     </tr>
+ </tbody>
+</table>
+<div class="screen1"><img src="../resources/images/p3_r1_c1.jpg" style="width: 83%;"></div>
+</div>
+
+
+          <!-- <td>A</td>
           <td>
             <div class="seaton" id="A1"><span class="glyphicon glyphicon-unchecked"></span></div>
           </td>
@@ -120,211 +179,11 @@ $(document).ready(function() {
           <td>
             <div class="seaton" id="A10"><span class="glyphicon glyphicon-unchecked"></span></div>
           </td>
-        </tr>
-        <tr>
-          <td>B</td>
-          <td>
-            <div  class="seaton" id="B1"> <span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
+        </tr> -->
 
-          <td>
-            <div class="seaton" id="B2"> <span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="B3"> <span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="B4"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="B5"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="B6"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="B7"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="B8"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="B9"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="B10"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-        </tr>
-        <tr>
-          <td>C</td>
-          <td>
-            <div class="seaton" id="C1"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-           <td>
-            <div class="seaton" id="C2"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="C3"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="C4"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="C5"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="C6"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="C7"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="C8"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="C9"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="C10"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-        </tr>
-        <tr>
-          <td>D</td>
-          <td>
-            <div class="seaton" id="D1"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-           <td>
-            <div class="seaton" id="D2"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="D3"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="D4"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="D5"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="D6"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="D7"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="D8"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="D9"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="D10"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-        </tr>
-        <tr>
-          <td>E</td>
-          <td>
-            <div class="seaton" id="E1"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-           <td>
-            <div class="seaton" id="E2"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="E3"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="E4"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="E5"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="E6"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="E7"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="E8"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="E9"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="E10"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-        </tr>
-        <tr>
-          <td>F</td>
-          <td>
-            <div class="seaton" id="F1"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-           <td>
-            <div class="seaton" id="F2"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="F3"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="F4"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="F5"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="F6"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="F7"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="F8"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="F9"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="F10"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-        </tr>
-        <tr>
-          <td>G</td>
-          <td>
-            <div class="seaton" id="G1"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-           <td>
-            <div class="seaton" id="G2"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="G3"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="G4"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="G5"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="G6"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="G7"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="G8"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="G9"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-          <td>
-            <div class="seaton" id="G10"><span class="glyphicon glyphicon-unchecked"></span></div>
-          </td>
-        </tr>
-        </table>
-        <div>
-          <td>
+
             <tr>
-            <button class="button">Pay ₹</button>
+            <button class="button">Pay ₹</button></tr></td></div>
           <!-- <button class="btn btn-primary btn-lg" ng-click="seatbookingCtrl.addSeat(s)">pay₹</button></tr></td></div> -->
       </div>
     </div>

@@ -9,9 +9,15 @@ class SeatbookingComponent {
    this.$cookies=$cookies;
    this.seatbooking = [];
    this.$socket = socket;
+  this.seatsres =seatsres;
+   this.scope =[]; 
    this.data = [];
    this.minfo=[];
    this.bktitle='';
+   this.stime=[];
+   this.mapDates=[];
+  this.goCats = false;
+   this.seat=false;
     // this.seatArray = [];
 
   }
@@ -25,10 +31,88 @@ class SeatbookingComponent {
      this.minfo=minfo;
      console.log(this.bktitle);
      console.log(this.minfo);
+     document.getElementById("mname").innerHTML=this.bktitle;
+     document.getElementById("mtit").innerHTML=this.bktitle;
+
    }
+
+ this.rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+      this.cols = [1, 2, 3, 4, 5, 6, 7, 8 ,9 ,10 ];
+
+ // Set reserved and selected $rootScope.Rseat_no
+var selected = [];
+var reserved=[];
+  this.getStatus = function(seatPos) {
+  if(reserved.indexOf(seatPos) > -1) {
+                return 'reserved';
+            } else if(selected.indexOf(seatPos) > -1) {
+                return 'selected';
+            }
+
+        }
+
+        // clear selected
+        this.clearSelected = function() {
+            selected = [];
+        }
+this.seatClicked = function(seatPos) {
+ console.log("Selected Seat: " + seatPos);
+    var index = selected.indexOf(seatPos);
+    if(index != -1) {
+        // seat already selected, remove
+        selected.splice(index, 1)
+    } else {
+        // new seat, push
+        selected.push(seatPos);
+console.log(selected);
+
+document.getElementById("st").innerHTML=selected;
+        seatNum=document.getElementById("st").innerHTML;
+
+       noofSeats=selected.length;
+         sel = document.getElementById("seats").value;
+  document.getElementById("totalst").innerHTML =sel;
+   if(sel==noofSeats)
+         {
+           total=noofSeats*200;
+            document.getElementById("amt").innerHTML = total;
+            this.goCats = false;
+
+}
+reserved.push(seatPos);
+console.log(reserved);
+  this.seatsres=reserved;
+
  }
 
+  window.bookedSeats = response.data;
+        this.socket.syncUpdates('seatbookingendpoint', window.bookedSeats);
+        window.disableSeats();
+window.disableSeats=function(){
+        for(var a=0;a<bookedSeats.length;a++){
+          for(var b=0;b<bookedSeats[a].Seats.length;b++){
+            var id=window.bookedSeats[a].Seats[b];
+            $('#'+id).attr('src','assets/Images/R_chair.gif');
+          }
+        }
+      }
+    }
+ }
 };
+
+
+  //  }
+  //  console.log(this.mapDates);
+//    for(var j=0; j<this.minfo.length;j++)
+//    {
+//      for(var k=0; i<this.minfo[j].showtime.length;j++)
+//      {
+// this.stime.push(this.minfo[j].showtime[k]);
+//      }
+//
+//    }
+// console.log(this.stime);
+
 
 // function addSeat(seat) {
 // seatArray.push(seat);
