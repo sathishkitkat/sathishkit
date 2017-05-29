@@ -73,7 +73,7 @@ this.removeDuplicates(this.mapmovieDate, "title");
       {
         this.bkmovie.push(this.mapmovieDate[i]);
 
-           }
+       }
 
     }
 console.log(this.bkmovie);
@@ -81,6 +81,7 @@ console.log(this.bkmovie);
     movieinfo:{
       bk:this.bkmovie,
       tit:moviess.title}};
+      console.log(obj);
                       this.$cookies.putObject('info', obj);
 
                     this.$location.path('/seatbooking');
