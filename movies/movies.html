@@ -2,32 +2,93 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
+      <h3>Add Movies</h3>
       <div class="tab-content">
          <div id="home" class="tab-pane fade in active">
       <div class="form-group">
-        <input type="text" placeholder="name" class="form-control" ng-model="moviesCtrl.name" / >
+        <input type="text" placeholder="name" class="form-control" ng-model="$moviesCtrl.name" / >
       </div>
      <div class="form-group">
-       <input type="text" placeholder="year" class="form-control" ng-model="moviesCtrl.year" />
-      <button type="button" ng-click="moviesCtrl.getmovie()" class="btn btn-primary">Get</button>
+       <!-- <input type="text" placeholder="year" class="form-control" ng-model="$moviesCtrl.year" /><br> -->
+      <button type="button" ng-click="$moviesCtrl.getmovie()" class="btn btn-primary">Get</button>
    </div>
 
-       <button class="btn btn-success" ng-click="moviesCtrl.Addtheatre()">Add</button>
-        <button type="button" ng-click="moviesCtrl.update()" class="btn btn-primary">Update</button><br><br>
+       <!-- <button class="btn btn-success" ng-click="$moviesCtrl.Addmovies()">Add</button> -->
     </div>
   </div>
 </div>
-  <div class="col-md-6">
-      <table class="table">
-        <tr>
-          <td>name</td>
-          <td>year</td>
-        </tr>
-        <tr ng-repeat="m in moviesCtrl.moviesDate">
-          <td>{{m.name}}</td>
-          <td>{{m.year}}</td>
-        </tr>
-      </table>
-    </div>
+</div>
+
+  <div class="row" >
+    <div class="col-md-12 text-center">
+      <div ng-show="$moviesCtrl.movieObj.Response=='False'">
+        <div class="alert alert-danger">
+          <p>There is no movie for this name<p>
     </div>
   </div>
+    <table class="table table-default" ng-show="$moviesCtrl.movieObj.Response=='True'">
+      <thead>
+        <tr>
+              <th>Poster</th>
+          <th>Title</th>
+          <th>Year</th>
+          <th>Language</th>
+          <th>Genre</th>
+          <th>Actors</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="text-align:left">
+          <td rowspan="2">
+            <img src={{$moviesCtrl.movieObj.Poster}} width="90%" height="50%" ng-show="$moviesCtrl.movieObj.Poster!='N/A'" />
+            <!-- <img src="assets/images/noposter.jpg" width="150" height="200" ng-show="$moviesCtrl.omdbdata.Poster=='N/A'" /> -->
+          </td>
+          <td>{{$moviesCtrl.movieObj.Title}}</td>
+          <td>{{$moviesCtrl.movieObj.Year}}</td>
+          <td>{{$moviesCtrl.movieObj.Language}}</td>
+          <td>{{$moviesCtrl.movieObj.Genre}}</td>
+          <td>{{$moviesCtrl.movieObj.Actors}}</td>
+
+        </tr>
+        <tr>
+          <td><button type="button" class="btn btn-primary btn-lg" ng-click="$moviesCtrl.Addmovies()"><span class="glyphicon glyphicon-plus"></span> Add Movie</button></td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-default table-hover">
+    <h3><font face="verdana" color="green">Movies List :</font></h3>
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Language</th>
+        <th>Genre</th>
+        <th>Director</th>
+        <th>Actors</th>
+        <!-- <th>Year</th> -->
+        <!-- <th>Duration</th> -->
+      </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="movie in $moviesCtrl.moviesData">
+      <td>{{movie.Title}}</td>
+      <td>{{movie.Language}}</td>
+      <td>{{movie.Genre}}</td>
+      <td>{{movie.Director}}</td>
+      <td>{{movie.Actors}}</td>
+
+            <!-- <button class="btn btn-danger" ng-click="$moviesCtrl.Remove(t)">Delet</button> -->
+      <td><button type="submit" class="btn btn-danger glyphicon glyphicon-trash" ng-click="$moviesCtrl.Delete(movie)"></button></td>
+    </td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+  </div>
+</div>
