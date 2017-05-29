@@ -9,20 +9,21 @@
       </tr>
     </thead>
     <tbody>
-         <tr><td>Username :</td></tr>
-         <tr><td>Contack :</td></tr>
-          <tr><td>MailId :</td></tr>
-           <tr><td>MovieName :</td></tr>
-          <tr> <td>Tname :</td></tr>
-           <tr><td>Date :</td></tr>
-           <tr><td>Time :</td></tr>
-           <tr><td>SeatNo :</td></tr>
-           <tr><td>CityName :</td></tr>
-           <tr><td>Amount :</td></tr>
-           <tr><td>NoFoTickets :</td></tr>
-       </tbody><br>
-       <div>
-  <button class="btn btn-primary btn-lg" ng-click="paymentCtrl.Addpayment()">Conform</button><td><br></div>
+         <tr><th>Username :</th><td><input ng-model="paymentCtrl.uname" type="text" class="form-control"></td></tr>
+         <tr><th>Contact :</th><td><input ng-model="paymentCtrl.contact" type="text" class="form-control"></td></tr>
+          <tr><th>MailId :</th><td><input ng-model="paymentCtrl.mailid" type="text" class="form-control"></td></tr>
+           <tr><th>MovieName :</th><td id="mname"></td></tr>
+          <tr> <th>Theatre :</th><td id="tr1"></td ></tr>
+           <tr><th>Date :</th><td id="tdate"></td ></tr>
+           <tr><th>Time :</th><td id="time"></td></tr>
+           <tr><th>CityName :</th><td id="cnam"></td ></tr>
+           <tr><th>Amount :</th><td id="amount"></td ></tr>
+           <!-- <tr><th>NoofTickets :</th><td id="no"></td ></tr> -->
+             <tr><th>SeatNo :</th><td id="sno"></td ></tr>
+
+</tbody><br>
 </div>
 </div>
 </div>
+<div>
+<div style=" margin-left: 40%";><button class="btn btn-primary btn-lg" ng-click="paymentCtrl.Addpayment()">Confirm</button><td><br></div>
