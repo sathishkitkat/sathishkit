@@ -16,11 +16,28 @@ class SeatbookingComponent {
    this.minfo=[];
    this.bktitle='';
    this.stime=[];
+   this.sestbooked=[];
    this.mapDates=[];
    this.goCats = false;
    this.sn=[];
    this.bkdata=[];
    this.s=[];
+
+//     this.d= function(){
+//       var uniquetime=[];
+//       var d;
+//    for(var i=0;i<1;i++){
+//      var date = new Date()
+//   var month = date.getMonth() + 1
+//  date.setDate(date.getDate()+i);
+//  var day=date.getDate();
+// var year = date.getFullYear()
+// var curentDate=day + "/" + month + "/" + year;
+//  d = new Date(new Date().getTime()).toLocaleTimeString();
+//  this.mapDates[i] = curentDate;
+// }
+//
+//  }
   //  this.seat=false;
     // this.seatArray = [];
 }
